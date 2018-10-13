@@ -1,6 +1,7 @@
 {
   "name": "apora/zoho-recruit-client-php",
   "description": "PHP client for Zoho Recruit API",
+  "version": "0.1.0",
   "license": "MIT",
   "authors": [
     {
