@@ -38,7 +38,7 @@ class ZohoRecruitClientTest extends TestCase
         $this->assertInstanceOf(ZohoRecruitClient::class, $actual);
     }
 
-    public function testGetRecords()
+    /*public function testGetRecords()
     {
         $actual = ZohoRecruitClientTest::$zohoRecruitClient->getRecords()->request();
         $this->assertContainsOnlyInstancesOf(Record::class, $actual);
@@ -87,5 +87,5 @@ class ZohoRecruitClientTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(Result::class, $actual);
         $this->assertEquals(1, sizeof($actual));
-    }
+    }*/
 }
