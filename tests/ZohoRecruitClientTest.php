@@ -23,20 +23,20 @@ class ZohoRecruitClientTest extends TestCase
     {
         parent::setUpBeforeClass();
 
-        $ini_properties = parse_ini_file(ZohoRecruitClientTest::TEST_INI_FILE);
+        /*$ini_properties = parse_ini_file(ZohoRecruitClientTest::TEST_INI_FILE);
 
         ZohoRecruitClientTest::$zohoRecruitClient = new ZohoRecruitClient(
             $ini_properties['module'],
             $ini_properties['authtoken']
         );
-        ZohoRecruitClientTest::$testRecordId = $ini_properties['record_id'];
+        ZohoRecruitClientTest::$testRecordId = $ini_properties['record_id'];*/
     }
 
-    public function testIsInstanceOfZohoRecruitClient()
+    /*public function testIsInstanceOfZohoRecruitClient()
     {
         $actual = ZohoRecruitClientTest::$zohoRecruitClient;
         $this->assertInstanceOf(ZohoRecruitClient::class, $actual);
-    }
+    }*/
 
     /*public function testGetRecords()
     {
