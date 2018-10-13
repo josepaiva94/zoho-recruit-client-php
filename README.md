@@ -1,7 +1,7 @@
 # PHP Client for Zoho Recruit API
 [![Build Status](https://travis-ci.org/apora/zoho-recruit-client-php.svg?branch=master)](https://travis-ci.org/apora/zoho-recruit-client-php)
 [![Latest Stable Version](https://poser.pugx.org/apora/zoho-recruit-client-php/v/stable)](https://packagist.org/packages/apora/zoho-recruit-client-php)
-[![License](https://poser.pugx.org/cristianpontes/zoho-recruit-client-php/license)](https://packagist.org/packages/apora/zoho-recruit-client-php)
+[![License](https://poser.pugx.org/apora/zoho-recruit-client-php/license)](https://packagist.org/packages/apora/zoho-recruit-client-php)
 
 Provides a clean readable PHP API client to the Zoho Recruit API. This project
 is heavily based on
