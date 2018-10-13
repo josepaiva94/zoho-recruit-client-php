@@ -60,9 +60,9 @@ class ZohoRecruitClientTest extends TestCase
         $actual = ZohoRecruitClientTest::$zohoRecruitClient
             ->addRecords()
             ->addRecord(array(
-                'Posting Title' => 'Software Engineer',
+                'Posting Title' => 'Test Position',
                 'Department' => 'IT',
-                'Assigned Recruiter' => 'Aniel Sriram',
+                'Assigned Recruiter' => 'Tester',
                 'Job description' => 'Test',
                 'Client Name' => 'Test',
                 'Company Description' => 'Mobile web and app development.',
