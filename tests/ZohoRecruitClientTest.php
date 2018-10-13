@@ -12,31 +12,36 @@ use PHPUnit\Framework\TestCase;
 
 class ZohoRecruitClientTest extends TestCase
 {
-    const AUTH_TOKEN = 'ec6e8a84125e87634dc526944b3d2c6b';
-    const MODULE = 'JobOpenings';
+    const TEST_INI_FILE = 'zoho-recruit-test.ini';
 
-    const TEST_RECORD_ID = '30002000000987003';
+    /** @var ZohoRecruitClient */
+    protected static $zohoRecruitClient;
 
-    /**
-     * @var ZohoRecruitClient
-     */
-    protected $zohoRecruitClient;
+    protected static $testRecordId;
 
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
-        $this->zohoRecruitClient = new ZohoRecruitClient(ZohoRecruitClientTest::MODULE, ZohoRecruitClientTest::AUTH_TOKEN);
+        parent::setUpBeforeClass();
+
+        $ini_properties = parse_ini_file(ZohoRecruitClientTest::TEST_INI_FILE);
+
+        ZohoRecruitClientTest::$zohoRecruitClient = new ZohoRecruitClient(
+            $ini_properties['module'],
+            $ini_properties['authtoken']
+        );
+        ZohoRecruitClientTest::$testRecordId = $ini_properties['record_id'];
     }
 
     public function testIsInstanceOfZohoRecruitClient()
     {
-        $actual = $this->zohoRecruitClient;
+        $actual = ZohoRecruitClientTest::$zohoRecruitClient;
         $this->assertInstanceOf(ZohoRecruitClient::class, $actual);
     }
 
     public function testGetRecords()
     {
         try {
-            $actual = $this->zohoRecruitClient->getRecords()->request();
+            $actual = ZohoRecruitClientTest::$zohoRecruitClient->getRecords()->request();
             $this->assertContainsOnlyInstancesOf(Record::class, $actual);
         } catch (Exception\UnexpectedValueException $e) {
             print $e->getMessage();
@@ -46,12 +51,12 @@ class ZohoRecruitClientTest extends TestCase
     public function testGetRecordById()
     {
         try {
-            $actual = $this->zohoRecruitClient
-                ->getRecordById(ZohoRecruitClientTest::TEST_RECORD_ID)
+            $actual = ZohoRecruitClientTest::$zohoRecruitClient
+                ->getRecordById(ZohoRecruitClientTest::$testRecordId)
                 ->request();
             $this->assertContainsOnlyInstancesOf(Record::class, $actual);
             $this->assertEquals(1, sizeof($actual));
-            $this->assertEquals(ZohoRecruitClientTest::TEST_RECORD_ID, $actual[1]->get('JOBOPENINGID'));
+            $this->assertEquals(ZohoRecruitClientTest::$testRecordId, $actual[1]->get('JOBOPENINGID'));
         } catch (Exception\Exception $e) {
             print $e->getMessage();
         }
@@ -60,7 +65,7 @@ class ZohoRecruitClientTest extends TestCase
     public function testAddRecords()
     {
 
-        $actual = $this->zohoRecruitClient
+        $actual = ZohoRecruitClientTest::$zohoRecruitClient
             ->addRecords()
             ->addRecord(array(
                 'Posting Title' => 'Software Engineer',
@@ -80,10 +85,10 @@ class ZohoRecruitClientTest extends TestCase
     public function testUpdateRecords()
     {
 
-        $actual = $this->zohoRecruitClient
+        $actual = ZohoRecruitClientTest::$zohoRecruitClient
             ->updateRecords()
             ->addRecord(array(
-                'Id' => ZohoRecruitClientTest::TEST_RECORD_ID,
+                'Id' => ZohoRecruitClientTest::$testRecordId,
                 'Posting Title' => 'Test'
             ))
             ->request();
