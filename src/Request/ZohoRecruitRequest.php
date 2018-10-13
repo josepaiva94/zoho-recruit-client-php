@@ -2,8 +2,6 @@
 
 namespace Apora\ZohoRecruitClient\Request;
 
-use Apora\ZohoRecruitClient\Exception\NoDataException;
-use Apora\ZohoRecruitClient\Exception\UnexpectedValueException;
 use Apora\ZohoRecruitClient\Response\Field;
 use Apora\ZohoRecruitClient\Response\Record;
 use Apora\ZohoRecruitClient\Response\Result;
@@ -60,16 +58,11 @@ abstract class ZohoRecruitRequest implements Request
     }
 
     /**
-     * @throws UnexpectedValueException
      * @return Record[]|Field[]|Result|Result[]
      */
     public function request()
     {
-        try {
-            return $this->transporter->request();
-        } catch (NoDataException $e) {
-            return array();
-        }
+        return $this->transporter->request();
     }
 
     /**
