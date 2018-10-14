@@ -61,7 +61,7 @@ class XMLTransportDecorator extends TransportDecorator
      *
      * @throws RuntimeException
      *
-     * @return string|true XML representation of the records
+     * @return string|bool XML representation of the records
      */
     private function encodeRecords(array $records)
     {
