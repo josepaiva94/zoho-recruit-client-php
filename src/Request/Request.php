@@ -1,13 +1,10 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Request;
 
 use Apora\ZohoRecruitClient\Transport\RequestTransporter;
 
 /**
  * Interface implemented by all public API requests
- *
- * @package Apora\ZohoRecruitClient\Request
  */
 interface Request
 {

@@ -1,5 +1,4 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Request;
 
 use Apora\ZohoRecruitClient\Response\Result;
@@ -8,40 +7,33 @@ use Apora\ZohoRecruitClient\Response\Result;
  * Zoho Recruit method to insert records into the required Zoho Recruit module
  *
  * @see https://www.zoho.com/recruit/api/api-methods/addRecordsMethod.html
- * @package Apora\ZohoRecruitClient\Request
  */
 class AddRecords extends ZohoRecruitRequest
 {
     /** @var array */
-    private $records = array();
-
-    /**
-     * Set the method and default parameters
-     */
-    protected function configureRequest()
-    {
-        $this->transporter
-            ->setMethod('addRecords')
-            ->setParam('version', 4);
-    }
+    private $records = [];
 
     /**
      * @param array $record Record as a simple associative array
+     *
      * @return AddRecords
      */
     public function addRecord(array $record)
     {
         $this->records[] = $record;
+
         return $this;
     }
 
     /**
      * @param array $records array containing records otherwise added by addRecord()
+     *
      * @return AddRecords
      */
     public function setRecords(array $records)
     {
         $this->records = $records;
+
         return $this;
     }
 
@@ -53,6 +45,7 @@ class AddRecords extends ZohoRecruitRequest
     public function triggerWorkflow()
     {
         $this->transporter->setParam('wfTrigger', 'true');
+
         return $this;
     }
 
@@ -64,6 +57,7 @@ class AddRecords extends ZohoRecruitRequest
     public function onDuplicateUpdate()
     {
         $this->transporter->setParam('duplicateCheck', 2);
+
         return $this;
     }
 
@@ -75,6 +69,7 @@ class AddRecords extends ZohoRecruitRequest
     public function onDuplicateError()
     {
         $this->transporter->setParam('duplicateCheck', 1);
+
         return $this;
     }
 
@@ -86,6 +81,7 @@ class AddRecords extends ZohoRecruitRequest
     public function requireApproval()
     {
         $this->transporter->setParam('isApproval', 'true');
+
         return $this;
     }
 
@@ -97,5 +93,15 @@ class AddRecords extends ZohoRecruitRequest
         return $this->transporter
             ->setParam('xmlData', $this->records)
             ->request();
+    }
+
+    /**
+     * Set the method and default parameters
+     */
+    protected function configureRequest()
+    {
+        $this->transporter
+            ->setMethod('addRecords')
+            ->setParam('version', 4);
     }
 }

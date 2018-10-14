@@ -1,13 +1,10 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Exception;
 
 use Apora\ZohoRecruitClient\ZohoRecruitError;
 
 /**
  * Exception thrown due to a Zoho Recruit error
- *
- * @package Apora\ZohoRecruitClient\Exception
  */
 class ZohoRecruitErrorException extends Exception
 {

@@ -4,7 +4,6 @@
  *
  * @license http://opensource.org/licenses/MIT MIT
  */
-
 namespace Apora\ZohoRecruitClient;
 
 use Apora\ZohoRecruitClient\Transport\RequestTransporter;
@@ -12,10 +11,10 @@ use Apora\ZohoRecruitClient\Transport\XMLTransportDecorator;
 
 class ZohoRecruitClient
 {
-    /** @var string */
-    private $module;
     /** @var Transport\Transport */
     protected $transport;
+    /** @var string */
+    private $module;
 
     /**
      * @param string $module
@@ -43,6 +42,7 @@ class ZohoRecruitClient
 
     /**
      * Sets the Zoho Recruit module, overriding the current value
+     *
      * @param string $module
      */
     public function setModule($module)
@@ -60,6 +60,7 @@ class ZohoRecruitClient
 
     /**
      * @param int|null $id
+     *
      * @return Request\GetRecordById
      */
     public function getRecordById($id = null)
@@ -68,6 +69,7 @@ class ZohoRecruitClient
         if ($id !== null) {
             $request->id($id);
         }
+
         return $request;
     }
 
@@ -206,6 +208,7 @@ class ZohoRecruitClient
     {
         $request = new Transport\RequestTransporter($this->module);
         $request->setTransport($this->transport);
+
         return $request;
     }
 }

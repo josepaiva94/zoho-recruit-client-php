@@ -1,11 +1,8 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 /**
  * Transport decorator that adds the authentication token and scope
- *
- * @package Apora\ZohoRecruitClient\Transport
  */
 class AuthenticationTokenTransportDecorator extends TransportDecorator
 {
@@ -21,12 +18,14 @@ class AuthenticationTokenTransportDecorator extends TransportDecorator
      * @param string $module    Zoho Recruit API module
      * @param string $method    Zoho Recruit API method
      * @param array  $paramList Parameters for call
+     *
      * @return string Result of the call
      */
     public function call($module, $method, array $paramList)
     {
         $paramList['authtoken'] = $this->authToken;
         $paramList['scope'] = 'recruitapi';
+
         return $this->transport->call($module, $method, $paramList);
     }
 }

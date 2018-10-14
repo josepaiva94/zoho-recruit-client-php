@@ -1,11 +1,9 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 use Apora\ZohoRecruitClient\Exception\Exception;
 use Apora\ZohoRecruitClient\Exception\NoDataException;
 use Apora\ZohoRecruitClient\Exception\RuntimeException;
-
 use Apora\ZohoRecruitClient\Exception\UnexpectedValueException;
 use Apora\ZohoRecruitClient\Exception\ZohoRecruitErrorException;
 use Apora\ZohoRecruitClient\Response\Field;
@@ -16,8 +14,6 @@ use SimpleXMLElement;
 
 /**
  * Transport decorator that handles XML communication with Zoho Recruit
- *
- * @package Apora\ZohoRecruitClient\Transport
  */
 class XMLTransportDecorator extends TransportDecorator
 {
@@ -40,8 +36,10 @@ class XMLTransportDecorator extends TransportDecorator
      * @param string $module    Zoho Recruit API module
      * @param string $method    Zoho Recruit API method
      * @param array  $paramList Parameters for call
-     * @return string Result of the call
+     *
      * @throws Exception if an error occurs while parsing the response body returned by Zoho
+     *
+     * @return string Result of the call
      */
     public function call($module, $method, array $paramList)
     {
@@ -64,7 +62,9 @@ class XMLTransportDecorator extends TransportDecorator
 
     /**
      * @param array $records
+     *
      * @throws RuntimeException
+     *
      * @return string XML representation of the records
      */
     private function encodeRecords(array $records)
@@ -72,7 +72,7 @@ class XMLTransportDecorator extends TransportDecorator
         $module = $this->method == 'updateRelatedRecords' ?
             $this->call_params['relatedModule'] : $this->module;
 
-        $root = new SimpleXMLElement('<'.$module.'></'.$module.'>');
+        $root = new SimpleXMLElement('<' . $module . '></' . $module . '>');
 
         foreach ($records as $no => $record) {
             $row = $root->addChild('row');
@@ -85,6 +85,7 @@ class XMLTransportDecorator extends TransportDecorator
 
     /**
      * Encodes a request record
+     *
      * @param array            $record
      * @param string           $childName XML node name
      * @param SimpleXMLElement $xml
@@ -117,7 +118,7 @@ class XMLTransportDecorator extends TransportDecorator
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $type = isset($value['@type']) ? $value['@type'] : "null";
+                $type = $value['@type'] ?? 'null';
                 unset($value['@type']);
                 $subNode = $xml->addChild("$type");
                 $subNode->addAttribute('no', $key + 1);
@@ -134,10 +135,12 @@ class XMLTransportDecorator extends TransportDecorator
      * Parses the XML returned by Zoho to the appropriate objects
      *
      * @param string $content Response body as returned by Zoho
-     * @throws UnexpectedValueException if invalid XML is given to parse
-     * @throws NoDataException if Zoho tells us there is no data
+     *
+     * @throws UnexpectedValueException  if invalid XML is given to parse
+     * @throws NoDataException           if Zoho tells us there is no data
      * @throws ZohoRecruitErrorException if content is an error response
-     * @throws Exception if an error occurs while parsing the response body returned by Zoho
+     * @throws Exception                 if an error occurs while parsing the response body returned by Zoho
+     *
      * @return bool|Record|Record[]|Field[]|Result|Result[]
      */
     private function parse($content)
@@ -192,12 +195,14 @@ class XMLTransportDecorator extends TransportDecorator
      * Parses a response to a download Zoho Recruit API call
      *
      * @param string $file_content
-     * @return bool
+     *
      * @throws Exception
+     *
+     * @return bool
      */
     private function parseResponseDownload($file_content)
     {
-        if (!isset($this->call_params['file_path'])) {
+        if (! isset($this->call_params['file_path'])) {
             throw new Exception('Missed file path, set it');
         }
 
@@ -212,16 +217,17 @@ class XMLTransportDecorator extends TransportDecorator
      * Parses a response to the getFields() Zoho Recruit API call
      *
      * @param SimpleXMLElement $xml
+     *
      * @return array
      */
     private function parseResponseGetFields($xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->section as $section) {
             foreach ($section as $field) {
-                $options = array();
+                $options = [];
                 if ($field->children()->count() > 0) {
-                    $options = array();
+                    $options = [];
                     foreach ($field->children() as $value) {
                         $options[] = (string) $value;
                     }
@@ -243,19 +249,20 @@ class XMLTransportDecorator extends TransportDecorator
         return $records;
     }
 
-
     /**
      * Parses a response to Zoho Recruit API calls to fetch records
      *
      * @param SimpleXMLElement $xml
+     *
      * @return array
      */
     private function parseResponseFetchRecords(SimpleXMLElement $xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->result->{$this->module}->row as $row) {
             $records[(string) $row['no']] = $this->parseRowToRecord($row);
         }
+
         return $records;
     }
 
@@ -263,16 +270,17 @@ class XMLTransportDecorator extends TransportDecorator
      * Parses a response to Zoho Recruit API calls that add/update records in batch
      *
      * @param SimpleXMLElement $xml
+     *
      * @return array
      */
     private function parseResponseAddUpdateMultipleRecords($xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->result->row as $row) {
             $no = (string) $row['no'];
             if (isset($row->success)) {
                 $success = new Result((int) $no, (string) $row->success->code);
-                $data = array();
+                $data = [];
                 foreach ($row->success->details->children() as $field) {
                     $data[(string) $field['val']] = (string) $field;
                 }
@@ -285,6 +293,7 @@ class XMLTransportDecorator extends TransportDecorator
                 $records[$no] = $error;
             }
         }
+
         return $records;
     }
 
@@ -293,6 +302,7 @@ class XMLTransportDecorator extends TransportDecorator
      *
      * @param SimpleXMLElement $xml
      * @param string           $type
+     *
      * @return Result
      */
     private function parseResponseMutateRecord($xml, $type = 'mutate')
@@ -309,7 +319,7 @@ class XMLTransportDecorator extends TransportDecorator
         $response = new Result(1, $code);
 
         if ($code !== '0') {
-            $data = array();
+            $data = [];
             foreach ($xml->result->recorddetail as $field) {
                 if ($field->count() > 0) {
                     foreach ($field->children() as $item) {
@@ -334,11 +344,12 @@ class XMLTransportDecorator extends TransportDecorator
      * Parses a row XML element into a Record
      *
      * @param SimpleXMLElement $row
+     *
      * @return Record
      */
     private function parseRowToRecord($row)
     {
-        $data = array();
+        $data = [];
         foreach ($row as $field) {
             if ($field->count() > 0) {
                 foreach ($field->children() as $item) {
@@ -350,6 +361,7 @@ class XMLTransportDecorator extends TransportDecorator
                 $data[(string) $field['val']] = (string) $field;
             }
         }
+
         return new Record($data, (int) $row['no']);
     }
 }

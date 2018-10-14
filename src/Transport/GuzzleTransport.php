@@ -1,5 +1,4 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 use GuzzleHttp\Client;
@@ -7,12 +6,9 @@ use GuzzleHttp\Psr7\Response;
 
 /**
  * Transport implemented using the Guzzle library to do HTTP calls to Zoho
- *
- * @package Apora\ZohoRecruitClient\Transport
  */
 class GuzzleTransport implements Transport
 {
-
     private $client;
 
     public function __construct($baseUri, $timeout)
@@ -24,15 +20,16 @@ class GuzzleTransport implements Transport
      * @param string $module    Zoho Recruit API module
      * @param string $method    Zoho Recruit API method
      * @param array  $paramList Parameters for call
-     * @return string Result of the call
+     *
      * @throws HttpException if the response status code is not success
+     *
+     * @return string Result of the call
      */
     public function call($module, $method, array $paramList)
     {
-
         $url = $module . '/' . $method;
 
-        $headers = array();
+        $headers = [];
 
         // Checking for multipart request
         $multipart = false;
@@ -44,12 +41,12 @@ class GuzzleTransport implements Transport
         }
 
         if ($multipart) {
-            $formData = array();
+            $formData = [];
             foreach ($paramList as $key => $value) {
-                $formData[] = array('name' => $key, 'contents' => $value);
+                $formData[] = ['name' => $key, 'contents' => $value];
             }
             /** @var Response $response */
-            $response = $this->client->post($url, array('headers' => $headers, 'multipart' => $formData));
+            $response = $this->client->post($url, ['headers' => $headers, 'multipart' => $formData]);
         } else {
             $requestData = http_build_query($paramList, '', '&');
             if ($method === 'getRecords' || $method === 'getRecordById') {
@@ -57,7 +54,7 @@ class GuzzleTransport implements Transport
                 $response = $this->client->get($url . '?' . $requestData);
             } else {
                 /** @var Response $response */
-                $response = $this->client->post($url, array('headers' => $headers, 'form_params' => $paramList));
+                $response = $this->client->post($url, ['headers' => $headers, 'form_params' => $paramList]);
             }
         }
 

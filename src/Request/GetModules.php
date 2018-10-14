@@ -1,15 +1,11 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Request;
 
 /**
  * Zoho Recruit method to retrieve all modules from Zoho Recruit account
- *
- * @package Apora\ZohoRecruitClient\Request
  */
 class GetModules extends ZohoRecruitRequest
 {
-
     /**
      * Set the method and default parameters
      */

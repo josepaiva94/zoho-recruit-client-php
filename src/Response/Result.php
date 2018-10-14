@@ -1,15 +1,10 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Response;
-
-use DateTime;
 
 use Apora\ZohoRecruitClient\ZohoRecruitError;
 
 /**
  * Response to API insert/update methods
- *
- * @package Apora\ZohoRecruitClient\Response
  */
 class Result
 {
@@ -77,7 +72,7 @@ class Result
      */
     public function isDeleted()
     {
-        return $this->code == '5000' || $this->code == "4800";
+        return $this->code == '5000' || $this->code == '4800';
     }
 
     /**
@@ -98,11 +93,13 @@ class Result
 
     /**
      * @param ZohoRecruitError $error
+     *
      * @return Result
      */
     public function setError(ZohoRecruitError $error)
     {
         $this->error = $error;
+
         return $this;
     }
 
@@ -117,6 +114,7 @@ class Result
     /**
      * @param string $key
      * @param mixed  $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -134,11 +132,13 @@ class Result
 
     /**
      * @param array $data
+     *
      * @return Result
      */
     public function setData(array $data)
     {
         $this->data = $data;
+
         return $this;
     }
 }

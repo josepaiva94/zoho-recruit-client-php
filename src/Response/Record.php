@@ -1,11 +1,8 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Response;
 
 /**
  * Response to API listing/get methods will be a set of Record
- *
- * @package Apora\ZohoRecruitClient\Response
  */
 class Record
 {
@@ -35,6 +32,7 @@ class Record
     /**
      * @param string $key
      * @param mixed  $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)

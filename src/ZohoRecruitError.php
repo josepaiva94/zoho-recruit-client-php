@@ -1,16 +1,14 @@
 <?php
-
 namespace Apora\ZohoRecruitClient;
 
 /**
  * Class ZohoRecruitError
  *
- * @package Apora\ZohoRecruitClient
  * @see https://www.zoho.com/recruit/api-new/error-messages.html
  */
 class ZohoRecruitError
 {
-    public static $errorCodes = array(
+    public static $errorCodes = [
         '2000' => 'Record added successfully.',
         '2001' => 'Record updated successfully.',
         '2002' => 'Record already exists.',
@@ -45,7 +43,7 @@ class ZohoRecruitError
         '4424' => 'Invalid File Type.',
         '4809' => 'Exceeded storage space limit.',
         '3809' => 'Exceeded parsing document limit.',
-    );
+    ];
 
     public $code;
     public $description;

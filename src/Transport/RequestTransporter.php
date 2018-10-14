@@ -1,5 +1,4 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 use Apora\ZohoRecruitClient\Response\Field;
@@ -8,12 +7,9 @@ use Apora\ZohoRecruitClient\Response\Result;
 
 /**
  * Model representing the request to Zoho without the sugar
- *
- * @package Apora\ZohoRecruitClient\Request
  */
 class RequestTransporter
 {
-
     /** @var Transport */
     private $transport;
     /** @var string */
@@ -29,16 +25,18 @@ class RequestTransporter
     public function __construct($module)
     {
         $this->module = $module;
-        $this->paramList = array();
+        $this->paramList = [];
     }
 
     /**
      * @param Transport $transport
+     *
      * @return RequestTransporter self
      */
     public function setTransport(Transport $transport)
     {
         $this->transport = $transport;
+
         return $this;
     }
 
@@ -52,11 +50,13 @@ class RequestTransporter
 
     /**
      * @param string $method
+     *
      * @return RequestTransporter
      */
     public function setMethod($method)
     {
         $this->method = $method;
+
         return $this;
     }
 
@@ -71,6 +71,7 @@ class RequestTransporter
     /**
      * @param string $key
      * @param mixed  $value
+     *
      * @return RequestTransporter
      */
     public function setParam($key, $value)
@@ -80,11 +81,13 @@ class RequestTransporter
         } else {
             $this->paramList[$key] = $value;
         }
+
         return $this;
     }
 
     /**
      * @param string $key
+     *
      * @return mixed|null
      */
     public function getParam($key)

@@ -1,11 +1,8 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 /**
  * Base abstract Transport decorator
- *
- * @package Apora\ZohoRecruitClient\Transport
  */
 abstract class TransportDecorator implements Transport
 {
@@ -23,8 +20,8 @@ abstract class TransportDecorator implements Transport
      * @param string $module    Zoho Recruit API module
      * @param string $method    Zoho Recruit API method
      * @param array  $paramList Parameters for call
+     *
      * @return string Result of the call
      */
     abstract public function call($module, $method, array $paramList);
-
 }

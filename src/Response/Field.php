@@ -1,11 +1,8 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Response;
 
 /**
  * Response to API method getFields() consists of an array of Field
- *
- * @package Apora\ZohoRecruitClient\Response
  */
 class Field
 {
@@ -89,7 +86,7 @@ class Field
     /**
      * @return array
      */
-    public function getOptions(): array
+    public function getOptions() : array
     {
         return $this->options;
     }

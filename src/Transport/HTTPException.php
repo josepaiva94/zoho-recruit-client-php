@@ -1,13 +1,10 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Transport;
 
 use Apora\ZohoRecruitClient\Exception\Exception;
 
 /**
  * Exception thrown when the status is not 200
- *
- * @package Apora\ZohoRecruitClient\Transport
  */
 class HTTPException extends Exception
 {

@@ -1,5 +1,4 @@
 <?php
-
 namespace Apora\ZohoRecruitClient\Request;
 
 use Apora\ZohoRecruitClient\Response\Field;
@@ -9,8 +8,6 @@ use Apora\ZohoRecruitClient\Transport\RequestTransporter;
 
 /**
  * Generic implementation of requests to Zoho Recruit API
- *
- * @package Apora\ZohoRecruitClient\Request
  */
 abstract class ZohoRecruitRequest implements Request
 {
@@ -31,6 +28,7 @@ abstract class ZohoRecruitRequest implements Request
     public function withEmptyFields()
     {
         $this->transporter->setParam('newFormat', 2);
+
         return $this;
     }
 
@@ -42,6 +40,7 @@ abstract class ZohoRecruitRequest implements Request
     public function withoutEmptyFields()
     {
         $this->transporter->setParam('newFormat', 1);
+
         return $this;
     }
 
@@ -49,11 +48,13 @@ abstract class ZohoRecruitRequest implements Request
      * Set the API version to use
      *
      * @param int $version
+     *
      * @return ZohoRecruitRequest self
      */
     public function version($version)
     {
         $this->transporter->setParam('version', $version);
+
         return $this;
     }
 
@@ -69,5 +70,4 @@ abstract class ZohoRecruitRequest implements Request
      * Set the method and default parameters
      */
     abstract protected function configureRequest();
-
 }
