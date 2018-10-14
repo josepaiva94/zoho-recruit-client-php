@@ -6,7 +6,7 @@ namespace Apora\ZohoRecruitClient\Request;
  */
 class GetSearchRecords extends ZohoRecruitRequest
 {
-    private $criteria = [];
+    private $criteria = '';
 
     /**
      * Column names to select i.e, ['Last Name', 'Website', 'Email']
