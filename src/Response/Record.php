@@ -51,7 +51,7 @@ class Record
     /**
      * Parse the record to JSON string
      *
-     * @return string
+     * @return string|false
      */
     public function toJSON()
     {

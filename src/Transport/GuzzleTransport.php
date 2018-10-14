@@ -21,7 +21,7 @@ class GuzzleTransport implements Transport
      * @param string $method    Zoho Recruit API method
      * @param array  $paramList Parameters for call
      *
-     * @throws HttpException if the response status code is not success
+     * @throws HTTPException if the response status code is not success
      *
      * @return string Result of the call
      */

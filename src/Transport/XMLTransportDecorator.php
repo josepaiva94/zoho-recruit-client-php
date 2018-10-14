@@ -61,7 +61,7 @@ class XMLTransportDecorator extends TransportDecorator
      *
      * @throws RuntimeException
      *
-     * @return string XML representation of the records
+     * @return string|true XML representation of the records
      */
     private function encodeRecords(array $records)
     {
@@ -72,7 +72,7 @@ class XMLTransportDecorator extends TransportDecorator
 
         foreach ($records as $no => $record) {
             $row = $root->addChild('row');
-            $row->addAttribute('no', $no + 1);
+            $row->addAttribute('no', (string) ($no + 1));
             $this->encodeRecord($record, 'FL', $row);
         }
 
@@ -117,7 +117,7 @@ class XMLTransportDecorator extends TransportDecorator
                 $type = $value['@type'] ?? 'null';
                 unset($value['@type']);
                 $subNode = $xml->addChild("$type");
-                $subNode->addAttribute('no', $key + 1);
+                $subNode->addAttribute('no', (string) ($key + 1));
                 $this->parseNestedValues($value, $subNode);
             } else {
                 $keyValue = $xml->addChild('FL');
@@ -203,8 +203,13 @@ class XMLTransportDecorator extends TransportDecorator
         }
 
         $fp = fopen($this->call_params['file_path'], 'w');
-        $success = fwrite($fp, $file_content);
-        fclose($fp);
+
+        if (is_resource($fp)) {
+            $success = fwrite($fp, $file_content);
+            fclose($fp);
+        } else {
+            $success = false;
+        }
 
         return $success ? true : false;
     }
