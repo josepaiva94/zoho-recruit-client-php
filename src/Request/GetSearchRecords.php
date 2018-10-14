@@ -1,6 +1,10 @@
 <?php
 namespace Apora\ZohoRecruitClient\Request;
 
+use Apora\ZohoRecruitClient\Response\Field;
+use Apora\ZohoRecruitClient\Response\Record;
+use Apora\ZohoRecruitClient\Response\Result;
+
 /**
  * Zoho Recruit method to search records by the expressions of the selected columns
  */
@@ -70,10 +74,13 @@ class GetSearchRecords extends ZohoRecruitRequest
      */
     public function where($field, $op, $value, $wrap_before = false)
     {
-        if ($wrap_before && count($this->criteria) > 0) {
+        if ($wrap_before && sizeof($this->criteria) > 0) {
             $this->criteria = '(' . $this->criteria . ')';
+        } elseif (sizeof($this->criteria) > 0) {
+            $this->criteria .= 'AND(' . $field . '|' . $op . '|' . $value . ')';
+        } else {
+            $this->criteria .= '(' . $field . '|' . $op . '|' . $value . ')';
         }
-        $this->criteria .= 'AND(' . $field . '|' . $op . '|' . $value . ')';
 
         return $this;
     }
@@ -97,6 +104,16 @@ class GetSearchRecords extends ZohoRecruitRequest
         $this->criteria .= 'OR(' . $field . '|' . $op . '|' . $value . ')';
 
         return $this;
+    }
+
+    /**
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool
+     */
+    public function request()
+    {
+        return $this->transporter
+            ->setParam('searchCondition', $this->criteria)
+            ->request();
     }
 
     /**
