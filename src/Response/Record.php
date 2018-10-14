@@ -12,8 +12,8 @@ class Record
     public $data;
 
     /**
-     * @param array $data
-     * @param int   $index
+     * @param array    $data
+     * @param int|null $index
      */
     public function __construct(array $data, $index = null)
     {
@@ -22,7 +22,7 @@ class Record
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getIndex()
     {

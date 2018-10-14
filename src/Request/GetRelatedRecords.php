@@ -15,7 +15,7 @@ class GetRelatedRecords extends ZohoRecruitRequest
      */
     public function fromIndex($index)
     {
-        $this->transporter->setParam('fromIndex', (int) $index);
+        $this->transporter->setParam('fromIndex', $index);
 
         return $this;
     }
@@ -29,7 +29,7 @@ class GetRelatedRecords extends ZohoRecruitRequest
      */
     public function pageSize($size)
     {
-        $this->transporter->setParam('toIndex', (int) $size);
+        $this->transporter->setParam('toIndex', $size);
 
         return $this;
     }

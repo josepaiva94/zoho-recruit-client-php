@@ -96,7 +96,7 @@ class RequestTransporter
     }
 
     /**
-     * @return Record[]|Field|Result|Result[]|bool
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool
      */
     public function request()
     {

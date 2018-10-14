@@ -38,7 +38,7 @@ class GetRecords extends ZohoRecruitRequest
      */
     public function fromIndex($index)
     {
-        $this->transporter->setParam('fromIndex', (int) $index);
+        $this->transporter->setParam('fromIndex', $index);
 
         return $this;
     }
@@ -52,7 +52,7 @@ class GetRecords extends ZohoRecruitRequest
      */
     public function pageSize($size)
     {
-        $this->transporter->setParam('toIndex', (int) $size);
+        $this->transporter->setParam('toIndex', $size);
 
         return $this;
     }
@@ -64,7 +64,7 @@ class GetRecords extends ZohoRecruitRequest
      */
     public function sortBy($column)
     {
-        $this->transporter->setParam('sortColumnString', (string) $column);
+        $this->transporter->setParam('sortColumnString', $column);
 
         return $this;
     }

@@ -1,6 +1,8 @@
 <?php
 namespace Apora\ZohoRecruitClient\Request;
 
+use Apora\ZohoRecruitClient\Response\Field;
+use Apora\ZohoRecruitClient\Response\Record;
 use Apora\ZohoRecruitClient\Response\Result;
 
 /**
@@ -86,7 +88,7 @@ class AddRecords extends ZohoRecruitRequest
     }
 
     /**
-     * @return Result[]
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool
      */
     public function request()
     {

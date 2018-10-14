@@ -39,7 +39,7 @@ class XMLTransportDecorator extends TransportDecorator
      *
      * @throws Exception if an error occurs while parsing the response body returned by Zoho
      *
-     * @return string Result of the call
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool Result of the call
      */
     public function call($module, $method, array $paramList)
     {
@@ -47,12 +47,8 @@ class XMLTransportDecorator extends TransportDecorator
         $this->method = $method;
         $this->call_params = $paramList;
 
-        if ($this->method == 'convertLead') {
-            //$paramList['xmlData'] = $this->encodeRequestConvertLead($paramList);
-        } else {
-            if (array_key_exists('xmlData', $paramList)) {
-                $paramList['xmlData'] = $this->encodeRecords($paramList['xmlData']);
-            }
+        if (array_key_exists('xmlData', $paramList)) {
+            $paramList['xmlData'] = $this->encodeRecords($paramList['xmlData']);
         }
 
         $response = $this->transport->call($module, $method, $paramList);

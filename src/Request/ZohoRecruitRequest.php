@@ -59,7 +59,7 @@ abstract class ZohoRecruitRequest implements Request
     }
 
     /**
-     * @return Record[]|Field[]|Result|Result[]
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool
      */
     public function request()
     {

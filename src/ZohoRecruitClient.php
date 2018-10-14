@@ -25,19 +25,15 @@ class ZohoRecruitClient
     public function __construct($module, $authToken, $domain = 'com', $timeout = 5)
     {
         $this->module = $module;
-        if ($authToken instanceof Transport\Transport) {
-            $this->transport = $authToken;
-        } else {
-            $this->transport = new XMLTransportDecorator(
-                new Transport\AuthenticationTokenTransportDecorator(
-                    $authToken,
-                    new Transport\GuzzleTransport(
-                        'https://recruit.zoho.' . $domain . '/recruit/private/xml/',
-                        $timeout
-                    )
+        $this->transport = new XMLTransportDecorator(
+            new Transport\AuthenticationTokenTransportDecorator(
+                $authToken,
+                new Transport\GuzzleTransport(
+                    'https://recruit.zoho.' . $domain . '/recruit/private/xml/',
+                    $timeout
                 )
-            );
-        }
+            )
+        );
     }
 
     /**
@@ -59,7 +55,7 @@ class ZohoRecruitClient
     }
 
     /**
-     * @param int|null $id
+     * @param string|null $id
      *
      * @return Request\GetRecordById
      */

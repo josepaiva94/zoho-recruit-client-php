@@ -1,6 +1,9 @@
 <?php
 namespace Apora\ZohoRecruitClient\Request;
 
+use Apora\ZohoRecruitClient\Response\Field;
+use Apora\ZohoRecruitClient\Response\Record;
+use Apora\ZohoRecruitClient\Response\Result;
 use Apora\ZohoRecruitClient\Transport\RequestTransporter;
 
 /**
@@ -14,7 +17,7 @@ interface Request
     public function __construct(RequestTransporter $transporter);
 
     /**
-     * @return array
+     * @return Record|Record[]|Field|Field[]|Result|Result[]|bool
      */
     public function request();
 }

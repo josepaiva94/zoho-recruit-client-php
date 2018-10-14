@@ -61,7 +61,7 @@ class GuzzleTransport implements Transport
         $responseContent = $response->getBody();
 
         if ($response->getStatusCode() !== 200) {
-            throw new HttpException($responseContent, $response->getStatusCode());
+            throw new HTTPException($responseContent, $response->getStatusCode());
         }
 
         return $responseContent;
