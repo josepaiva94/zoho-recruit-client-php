@@ -74,9 +74,9 @@ class GetSearchRecords extends ZohoRecruitRequest
      */
     public function where($field, $op, $value, $wrap_before = false)
     {
-        if ($wrap_before && sizeof($this->criteria) > 0) {
+        if ($wrap_before && strlen($this->criteria) > 0) {
             $this->criteria = '(' . $this->criteria . ')';
-        } elseif (sizeof($this->criteria) > 0) {
+        } elseif (strlen($this->criteria) > 0) {
             $this->criteria .= 'AND(' . $field . '|' . $op . '|' . $value . ')';
         } else {
             $this->criteria .= '(' . $field . '|' . $op . '|' . $value . ')';
@@ -98,10 +98,13 @@ class GetSearchRecords extends ZohoRecruitRequest
      */
     public function orWhere($field, $op, $value, $wrap_before = false)
     {
-        if ($wrap_before && count($this->criteria) > 0) {
+        if ($wrap_before && strlen($this->criteria) > 0) {
             $this->criteria = '(' . $this->criteria . ')';
+        } elseif (strlen($this->criteria) > 0) {
+            $this->criteria .= 'OR(' . $field . '|' . $op . '|' . $value . ')';
+        } else {
+            $this->criteria .= '(' . $field . '|' . $op . '|' . $value . ')';
         }
-        $this->criteria .= 'OR(' . $field . '|' . $op . '|' . $value . ')';
 
         return $this;
     }
