@@ -35,7 +35,6 @@ class GuzzleTransport implements Transport
         $multipart = false;
         foreach ($paramList as $param) {
             if (is_array($param) && isset($param['file']) && $param['file']) {
-                print_r($param);
                 $multipart = true;
                 break;
             }
