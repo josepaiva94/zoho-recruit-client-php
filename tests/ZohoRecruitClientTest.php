@@ -23,21 +23,21 @@ class ZohoRecruitClientTest extends TestCase
     {
         parent::setUpBeforeClass();
 
-        /*$ini_properties = parse_ini_file(ZohoRecruitClientTest::TEST_INI_FILE);*/
+        /*$ini_properties = parse_ini_file(self::TEST_INI_FILE);
 
-        /*ZohoRecruitClientTest::$zohoRecruitClient = new ZohoRecruitClient(
+        self::$zohoRecruitClient = new ZohoRecruitClient(
             $ini_properties['module'],
             $ini_properties['authtoken']
         );*/
 
-        ZohoRecruitClientTest::$zohoRecruitClient = new ZohoRecruitClient('', '');
+        self::$zohoRecruitClient = new ZohoRecruitClient('', '');
 
-        /*ZohoRecruitClientTest::$testRecordId = $ini_properties['record_id'];*/
+        /*self::$testRecordId = $ini_properties['record_id'];*/
     }
 
     public function testIsInstanceOfZohoRecruitClient()
     {
-        $actual = ZohoRecruitClientTest::$zohoRecruitClient;
+        $actual = self::$zohoRecruitClient;
         $this->assertInstanceOf(ZohoRecruitClient::class, $actual);
     }
 
@@ -90,5 +90,16 @@ class ZohoRecruitClientTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(Result::class, $actual);
         $this->assertEquals(1, sizeof($actual));
+    }*/
+
+    /*public function testUploadFile()
+    {
+        $actual = self::$zohoRecruitClient
+            ->uploadFile()
+            ->id(self::$testRecordId)
+            ->type('Attach resume')
+            ->uploadFromPath(__DIR__ . '/Profile.pdf', 'pp.pdf')
+            ->request();
+        print_r($actual);
     }*/
 }

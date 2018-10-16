@@ -23,13 +23,18 @@ class UploadPhoto extends ZohoRecruitRequest
     /**
      * Pass the file input stream to a record
      *
-     * @param string $path - this must be the full path of the file. i.e: /home/path/to/file.extension
+     * @param string      $path       - this must be the full path of the file. i.e: /home/path/to/file.extension
+     * @param string|null $prettyname - pretty name to use for file
      *
      * @return UploadPhoto
      */
-    public function uploadFromPath($path)
+    public function uploadFromPath($path, $prettyname = null)
     {
-        $this->transporter->setParam('content', fopen($path, 'r'));
+        $this->transporter->setParam('content', [
+            'file' => true,
+            'path' => $path,
+            'prettyname' => isset($prettyname) ? basename($prettyname) : basename($path)
+        ]);
 
         return $this;
     }

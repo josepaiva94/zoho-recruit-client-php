@@ -34,7 +34,8 @@ class GuzzleTransport implements Transport
         // Checking for multipart request
         $multipart = false;
         foreach ($paramList as $param) {
-            if (is_resource($param) && get_resource_type($param) == 'stream') {
+            if (is_array($param) && isset($param['file']) && $param['file']) {
+                print_r($param);
                 $multipart = true;
                 break;
             }
@@ -43,7 +44,11 @@ class GuzzleTransport implements Transport
         if ($multipart) {
             $formData = [];
             foreach ($paramList as $key => $value) {
-                $formData[] = ['name' => $key, 'contents' => $value];
+                if (is_array($value) && isset($value['file']) && $value['file']) {
+                    $formData[] = ['name' => $key, 'contents' => fopen($value['path'], 'r'), 'filename' => $value['prettyname']];
+                } else {
+                    $formData[] = ['name' => $key, 'contents' => $value];
+                }
             }
             /** @var Response $response */
             $response = $this->client->post($url, ['headers' => $headers, 'multipart' => $formData]);
