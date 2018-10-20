@@ -10,7 +10,7 @@ for Zoho CRM API.
 
 ## Prerequisites
 
-- PHP >= 5.4
+- PHP >= 7.0
 - Composer
 
 ## Easy Installation
